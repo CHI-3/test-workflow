@@ -25,5 +25,5 @@ jobs:
             repo: ${{ github.event.repository.name }}
             ref: ${{ github.ref }}
             github_token: ${{ github.token }}
-            # workflow_file_name: test-github-dispatch.yml
-          uses: test-github-dispatch.yml
+            workflow_file_name: test-github-dispatch.yml
+
