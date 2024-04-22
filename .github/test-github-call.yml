@@ -1,0 +1,16 @@
+name: Manual Deployment to Production
+on:
+  workflow_call:
+    inputs:
+      target_env:
+        description: 'Choose the environment to deploy:'
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v4
+          run: |
+            echo  ${{ inputs.app-name }}

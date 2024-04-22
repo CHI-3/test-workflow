@@ -15,11 +15,16 @@ jobs:
         - uses: actions/checkout@v4
         - name: main
           if: ${{ github.ref == 'refs/heads/main' }}
-          run: |
-            echo "This environments is main"
-            echo "Task is running for main"
+          uses: ./.github/workflows/test-github-call.yml
+          with:
+            target-env: dev
         - name: production
           if: ${{ github.ref == 'refs/heads/production' }}
-          run: |
-            echo "New push to production detected. Please trigger the manual deployment workflow."
+          uses: ./.github/workflows/test-github-call.yml
+          with:
+            target-env: prod
+        - name: pre-production
+          uses: ./.github/workflows/test-github-call.yml
+          with:
+            target-env: pre-production
 
