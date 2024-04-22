@@ -20,5 +20,6 @@ jobs:
             echo "Task is running for main"
         - name: production
           if: ${{ github.ref == 'refs/heads/production' }}
-          uses: ./.github/workflows/test-github-dispatch.yml
+          run: |
+            echo "New push to production detected. Please trigger the manual deployment workflow."
 
