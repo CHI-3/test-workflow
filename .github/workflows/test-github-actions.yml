@@ -1,20 +1,33 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: Unified Deployment Workflow
+
 on:
-    push:
-        branches:
-            - main
-            - production
-        paths:
-            - 'docs/**'
+  push:
+    branches:
+      - main
+      - production
+    paths:
+      - 'docs/**'
 
 jobs:
-  main:
-    uses: ./.github/workflows/test-github-call.yml
-    if: ${{ github.ref == 'refs/heads/main' }}
-    with:
-      target_env: main
-    if: ${{ github.ref == 'refs/heads/production }}
+  deploy:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        target_env: [ 'pre-production', 'production' ]
+        include:
+          - branch: 'main'
+            env: 'develop'
+          - branch: 'production'
+            env: 'pre-production'
+          - branch: 'production'
+            env: 'production'
+
+    # 実行条件を追加して、プッシュされたブランチがマトリックス定義と一致するか確認
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to ${{ matrix.env }}
+        if: ${{ github.ref == format('refs/heads/{0}', matrix.branch) }}
+        uses: ./.github/workflows/deploy-workflow.yml
+        with:
+          target_env: ${{ matrix.env }}
+          deploy_path: path_${{ matrix.env }}
