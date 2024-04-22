@@ -7,17 +7,7 @@ on:
             - production
         paths:
             - 'docs/**'
-    workflow_dispatch:
-        branches:
-            - production
-        inputs:
-            target_env:
-                type: choice
-                description: 'target environments'
-                default: 'pre-production'
-                options:
-                    - pre-production
-                    - production
+
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
@@ -30,12 +20,5 @@ jobs:
             echo "This environments is main"
             echo "Task is running for main"
         - name: production
-          if: ${{ github.ref == 'refs/heads/production' && inputs.target_env == 'pre-production'}}
-          run: |
-            echo "This environments is pre-production"
-            echo "Task is running for pre-production"
-        - name: production
-          if:  ${{ inputs.target_env == 'production' && inputs.target_env == 'production'}}
-          run: |
-            echo "This environments is production"
-            echo "Task is running for production"
+          if: ${{ github.ref == 'refs/heads/production' }}
+          uses: ./.github/workflows/test-github-dispatch.yml
