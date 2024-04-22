@@ -10,7 +10,7 @@ on:
 
 jobs:
   set-env:
-    uses: ./.github/workflows/test-github-call.yml
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         include:
@@ -20,6 +20,11 @@ jobs:
             env: 'pre-production'
           - branch: 'production'
             env: 'production'
-    with:
-      target_env: ${{ matrix.env }}
-      deploy_path: path_${{ matrix.branch }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: develop
+        if: github.ref == format('refs/heads/{0}', matrix.branch)
+        uses: ./.github/workflows/test-github-call.yml
+        with:
+          target_env: ${{ matrix.env }}
+          deploy_path: path_${{ matrix.branch }}
