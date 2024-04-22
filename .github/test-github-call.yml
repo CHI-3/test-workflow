@@ -13,4 +13,4 @@ jobs:
     steps:
         - uses: actions/checkout@v4
           run: |
-            echo  ${{ inputs.app-name }}
+            echo ${{ inputs.target_env }}

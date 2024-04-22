@@ -9,22 +9,12 @@ on:
             - 'docs/**'
 
 jobs:
-  main-or-production:
-    runs-on: ubuntu-latest
-    steps:
-        - uses: actions/checkout@v4
-        - name: main
-          if: ${{ github.ref == 'refs/heads/main' }}
-          uses: ./.github/workflows/test-github-call.yml
-          with:
-            target-env: dev
-        - name: production
-          if: ${{ github.ref == 'refs/heads/production' }}
-          uses: ./.github/workflows/test-github-call.yml
-          with:
-            target-env: prod
-        - name: pre-production
-          uses: ./.github/workflows/test-github-call.yml
-          with:
-            target-env: pre-production
-
+  main:
+    uses: ./.github/workflows/test-github-call.yml
+    if: ${{ github.ref == 'refs/heads/main' }}
+    with:
+      target_env: main
+    if: ${{ github.ref == 'refs/heads/production }}
+    strategy:
+      matrix:
+        target_env: [ 'pre-production', 'production' ]
