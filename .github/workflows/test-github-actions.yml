@@ -21,4 +21,4 @@ jobs:
             echo "Task is running for main"
         - name: production
           if: ${{ github.ref == 'refs/heads/production' }}
-          uses: ./test-github-dispatch.yml
+          uses: test-github-dispatch.yml
