@@ -28,7 +28,7 @@ jobs:
 
   deploy:
     needs: set-env
-    uses: ./.github/workflows/test-github-call.yml
+    uses: CHI-3/test-workflow/.github/workflows/test-github-call.yml@main
     with:
       target_env: ${{ needs.set-env.outputs.env }}
       deploy_path: path_${{ needs.set-env.outputs.branch }}
