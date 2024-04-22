@@ -9,8 +9,11 @@ on:
       - 'docs/**'
 
 jobs:
-  deploy:
+  set-env:
     runs-on: ubuntu-latest
+    outputs:
+      branch: ${{ matrix.branch }}
+      env: ${{ matrix.env }}
     strategy:
       matrix:
         include:
@@ -21,13 +24,9 @@ jobs:
           - branch: 'production'
             env: 'production'
 
-    # 実行条件を追加して、プッシュされたブランチがマトリックス定義と一致するか確認
-
-    steps:
-      - uses: actions/checkout@v4
-      - name: Deploy to ${{ matrix.env }}
-        if: ${{ github.ref == format('refs/heads/{0}', matrix.branch) }}
-        uses: ./.github/workflows/test-github-call.yml
-        with:
-          target_env: ${{ matrix.env }}
-          deploy_path: path_${{ matrix.env }}
+  deploy:
+    needs: set-env
+    uses: ./.github/workflows/test-github-call.yml
+    with:
+      target_env: ${{ needs.set-env.outputs.env }}
+      deploy_path: path_${{ needs.set-env.outputs.branch }}
