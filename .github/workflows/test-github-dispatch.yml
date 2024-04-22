@@ -1,0 +1,27 @@
+name: dispatch
+
+on:
+    workflow_call:
+        inputs:
+            target_env:
+                type: choice
+                required: true
+                description: 'target environments'
+                default: 'pre-production'
+                options:
+                    - pre-production
+                    - production
+jobs:
+    steps:
+
+    - name: pre-production
+    if:  ${{ inputs.target_env == 'pre-production' }}
+    run: |
+        echo "This environments is pre-production"
+        echo "Task is running for pre-production"
+
+    - name: production
+    if:  ${{ inputs.target_env == 'production' }}
+    run: |
+        echo "This environments is production"
+        echo "Task is running for production"
