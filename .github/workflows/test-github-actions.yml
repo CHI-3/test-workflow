@@ -9,26 +9,23 @@ on:
       - 'docs/**'
 
 jobs:
-  set-env:
-    runs-on: ubuntu-latest
-    outputs:
-      branch: ${{ matrix.branch }}
-      env: ${{ matrix.env }}
-    strategy:
-      matrix:
-        include:
-          - branch: 'main'
-            env: 'develop'
-          - branch: 'production'
-            env: 'pre-production'
-          - branch: 'production'
-            env: 'production'
-    steps:
-      - run: echo "test"
-
-  deploy:
-    needs: set-env
+  deploy-develop:
+    if: github.ref == 'refs/heads/main'
     uses: CHI-3/test-workflow/.github/workflows/test-github-call.yml@main
     with:
-      target_env: ${{ needs.set-env.outputs.env }}
-      deploy_path: path_${{ needs.set-env.outputs.branch }}
+      target_env: 'develop'
+      deploy_path: 'path_main'
+
+  deploy-pre-production:
+    if: github.ref == 'refs/heads/production'
+    uses: CHI-3/test-workflow/.github/workflows/test-github-call.yml@main
+    with:
+      target_env: 'pre-production'
+      deploy_path: 'path_production'
+
+  deploy-production:
+    if: github.ref == 'refs/heads/production'
+    uses: CHI-3/test-workflow/.github/workflows/test-github-call.yml@main
+    with:
+      target_env: 'production'
+      deploy_path: 'path_production'
