@@ -23,6 +23,8 @@ jobs:
             env: 'pre-production'
           - branch: 'production'
             env: 'production'
+    steps:
+      - run: echo "test"
 
   deploy:
     needs: set-env
