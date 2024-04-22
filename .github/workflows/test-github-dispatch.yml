@@ -1,29 +1,21 @@
-name: dispatch
-
+name: Manual Deployment to Production
 on:
-    workflow_dispatch:
-      inputs:
-        target_env:
-          description: 'target environments'
-          required: true
-          default: 'pre-production'
-          type: choice
-          options:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Choose the environment to deploy:'
+        required: true
+        type: choice
+        options:
           - pre-production
           - production
 
 jobs:
-    pre-production-or-production:
-        runs-on: ubuntu-latest
-        steps:
-        - uses: actions/checkout@v4
-        - name: pre-production
-          if:  ${{ inputs.target_env == 'pre-production' }}
-          run: |
-            echo "This environments is pre-production"
-            echo "Task is running for pre-production"
-        - name: production
-          if:  ${{ inputs.target_env == 'production' }}
-          run: |
-            echo "This environments is production"
-            echo "Task is running for production"
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up environment
+        run: |
+          echo "Deploying to ${{ github.event.inputs.environment }} environment."
+          # Add your deployment commands here
