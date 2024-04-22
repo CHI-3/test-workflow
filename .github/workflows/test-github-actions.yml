@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         - uses: actions/checkout@v4
-
         - name: main
           if: ${{ github.ref == 'refs/heads/main' }}
           run: |
@@ -21,4 +20,10 @@ jobs:
             echo "Task is running for main"
         - name: production
           if: ${{ github.ref == 'refs/heads/production' }}
-          uses: owner/repo/.github/workflows/test-github-dispatch.yml@main
+          with:
+            owner: ${{ github.repository_owner }}
+            repo: ${{ github.event.repository.name }}
+            ref: ${{ github.ref }}
+            github_token: ${{ github.token }}
+            # workflow_file_name: test-github-dispatch.yml
+          uses: test-github-dispatch.yml@main
