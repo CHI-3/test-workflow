@@ -13,15 +13,15 @@ on:
                     - production
 jobs:
     steps:
+        - uses: actions/checkout@v4
+        - name: pre-production
+        if:  ${{ inputs.target_env == 'pre-production' }}
+        run: |
+            echo "This environments is pre-production"
+            echo "Task is running for pre-production"
 
-    - name: pre-production
-    if:  ${{ inputs.target_env == 'pre-production' }}
-    run: |
-        echo "This environments is pre-production"
-        echo "Task is running for pre-production"
-
-    - name: production
-    if:  ${{ inputs.target_env == 'production' }}
-    run: |
-        echo "This environments is production"
-        echo "Task is running for production"
+        - name: production
+        if:  ${{ inputs.target_env == 'production' }}
+        run: |
+            echo "This environments is production"
+            echo "Task is running for production"
