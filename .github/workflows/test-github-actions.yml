@@ -1,0 +1,30 @@
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on:
+    push:
+        branches:
+            - main
+            - production
+        paths:
+            - 'docs/**'
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v4
+
+        - name: main
+          if: ${{ github.ref == 'refs/heads/main' }}
+          run: |
+            echo "This environments is main"
+            echo "Task is running for main"
+        - name: pre-production
+          if: ${{ github.ref == 'refs/heads/production' && inputs.target == 'pre-production'}}
+          run: |
+            echo "This environments is pre-production"
+            echo "Task is running for pre-production"
+        - name: production
+          if: ${{ github.ref == 'refs/heads/production' && inputs.target == 'production'}}
+          run: |
+            echo "This environments is production"
+            echo "Task is running for production"
