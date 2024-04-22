@@ -9,7 +9,7 @@ on:
             - 'docs/**'
 
 jobs:
-  Explore-GitHub-Actions:
+  main-or-production:
     runs-on: ubuntu-latest
     steps:
         - uses: actions/checkout@v4
@@ -20,10 +20,5 @@ jobs:
             echo "Task is running for main"
         - name: production
           if: ${{ github.ref == 'refs/heads/production' }}
-          with:
-            owner: ${{ github.repository_owner }}
-            repo: ${{ github.event.repository.name }}
-            ref: ${{ github.ref }}
-            github_token: ${{ github.token }}
-            workflow_file_name: test-github-dispatch.yml
+          uses: ./.github/workflows/test-github-dispatch.yml
 

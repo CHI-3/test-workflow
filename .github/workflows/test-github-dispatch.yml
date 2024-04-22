@@ -1,19 +1,21 @@
 name: dispatch
 
 on:
-    workflow_call:
-        inputs:
-            target_env:
-                type: choice
-                required: true
-                description: 'target environments'
-                default: 'pre-production'
-                options:
-                    - pre-production
-                    - production
+    workflow_dispatch:
+      inputs:
+        target_env:
+          description: 'target environments'
+          required: true
+          default: 'pre-production'
+          type: choice
+          options:
+          - pre-production
+          - production
+
 jobs:
-    runs-on: ubuntu-latest
-    steps:
+    pre-production-or-production:
+        runs-on: ubuntu-latest
+        steps:
         - name: pre-production
           if:  ${{ inputs.target_env == 'pre-production' }}
           run: |
