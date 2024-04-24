@@ -10,6 +10,10 @@ on:
         description: 'Path to deploy'
         required: true
         type: string
+      aws_account_id:
+        description: 'aws account id for deploying'
+        required: true
+        type: string
 
 env:
     REGION: ap-northeast-1
@@ -36,3 +40,4 @@ jobs:
           fi
           echo "Deploy path is ${{ inputs.deploy_path }}"
           echo "The target region is ${{ env.REGION }}"
+          echo "The target aws account id is ${{ inputs.aws_account_id }}"
