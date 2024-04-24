@@ -34,7 +34,7 @@ jobs:
         run: |
           echo "Deploying to ${{ inputs.target_env }} environment..."
           # 環境に応じたデプロイスクリプトを実行
-          if [ "${{ inputs.target_env }}" = "main" ]; then
+          if [ "${{ inputs.target_env }}" = "dev" ]; then
             echo "Deploy commands for Develop environment"
             echo ${{ secrets.AWS_ACCOUNT_ID_DEV }}
             # Develop環境向けデプロイコマンド
