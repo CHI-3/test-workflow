@@ -36,15 +36,15 @@ jobs:
           # 環境に応じたデプロイスクリプトを実行
           if [ "${{ inputs.target_env }}" = "dev" ]; then
             echo "Deploy commands for Develop environment"
-            echo AWS_ACCOUNT_ID=`${{ secrets.AWS_ACCOUNT_ID_DEV }}" | sed 's/./& /g'` >> $GITHUB_ENV
+            echo AWS_ACCOUNT_ID=`${{ secrets.AWS_ACCOUNT_ID_DEV }} | sed 's/./& /g'` >> $GITHUB_ENV
             # Develop環境向けデプロイコマンド
           elif [ "${{ inputs.target_env }}" = "pre-production" ]; then
             echo "Deploy commands for Pre-Production environment"
-            echo AWS_ACCOUNT_ID=`${{ secrets.AWS_ACCOUNT_ID_PRE_PROD }}" | sed 's/./& /g'` >> $GITHUB_ENV
+            echo AWS_ACCOUNT_ID=`${{ secrets.AWS_ACCOUNT_ID_PRE_PROD }} | sed 's/./& /g'` >> $GITHUB_ENV
             # Pre-Production環境向けデプロイコマンド
           elif [ "${{ inputs.target_env }}" = "production" ]; then
             echo "Deploy commands for Production environment"
-            echo AWS_ACCOUNT_ID=`${{ secrets.AWS_ACCOUNT_ID_PROD }}" | sed 's/./& /g'` >> $GITHUB_ENV
+            echo AWS_ACCOUNT_ID=`${{ secrets.AWS_ACCOUNT_ID_PROD }} | sed 's/./& /g'` >> $GITHUB_ENV
             # Production環境向けデプロイコマンド
           fi
           echo "account id is $AWS_ACCOUNT_ID"
