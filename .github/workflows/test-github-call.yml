@@ -36,15 +36,15 @@ jobs:
           # 環境に応じたデプロイスクリプトを実行
           if [ "${{ inputs.target_env }}" = "dev" ]; then
             echo "Deploy commands for Develop environment"
-            echo ${{ secrets.AWS_ACCOUNT_ID_DEV }}
+            echo "aws account id is ${{ secrets.AWS_ACCOUNT_ID_DEV }}"
             # Develop環境向けデプロイコマンド
           elif [ "${{ inputs.target_env }}" = "pre-production" ]; then
             echo "Deploy commands for Pre-Production environment"
-            echo ${{ secrets.AWS_ACCOUNT_ID_PRE_PROD }}
+            echo "aws account id is ${{ secrets.AWS_ACCOUNT_ID_PRE_PROD }}"
             # Pre-Production環境向けデプロイコマンド
           elif [ "${{ inputs.target_env }}" = "production" ]; then
             echo "Deploy commands for Production environment"
-            echo ${{ secrets.AWS_ACCOUNT_ID_PROD }}
+            echo "aws account id is ${{ secrets.AWS_ACCOUNT_ID_PROD }}"
             # Production環境向けデプロイコマンド
           fi
           echo "Deploy path is ${{ inputs.deploy_path }}"
