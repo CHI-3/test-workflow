@@ -15,7 +15,6 @@ jobs:
     with:
       target_env: 'develop'
       deploy_path: 'path_main'
-      aws_account_id: ${{ secrets.AWS_ACCOUNT_DEV.AWS_ACCOUNT_ID }}
 
   deploy-pre-production:
     if: github.ref == 'refs/heads/production'
@@ -23,7 +22,6 @@ jobs:
     with:
       target_env: 'pre-production'
       deploy_path: 'path_production'
-      aws_account_id: ${{ secrets.AWS_ACCOUNT_PRE_PROD.AWS_ACCOUNT_ID }}
 
   deploy-production:
     if: github.ref == 'refs/heads/production'
@@ -31,4 +29,3 @@ jobs:
     with:
       target_env: 'production'
       deploy_path: 'path_production'
-      aws_account_id: ${{ secrets.AWS_ACCOUNT_PROD.AWS_ACCOUNT_ID }}
