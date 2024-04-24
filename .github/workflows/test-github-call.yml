@@ -10,13 +10,19 @@ on:
         description: 'Path to deploy'
         required: true
         type: string
-
+    secrets:
+        AWS_ACCOUNT_ID_DEV:
+            description: 'account id of dev environment'
+            required: false
+        AWS_ACCOUNT_ID_PRE_PROD:
+            description: 'account id of pre_production environment'
+            required: false
+        AWS_ACCOUNT_ID_PROD:
+            description: 'account id of production environment'
+            required: false
 
 env:
     REGION: ap-northeast-1
-    AWS_ACCOUNT_ID_DEV: ${{ secrets.AWS_ACCOUNT_ID_DEV }}
-    AWS_ACCOUNT_ID_PRE_PROD: ${{ secrets.AWS_ACCOUNT_ID_PRE_PROD }}
-    AWS_ACCOUNT_ID_PROD: ${{ secrets.AWS_ACCOUNT_ID_PROD }}
 
 jobs:
   deploy:
@@ -30,16 +36,17 @@ jobs:
           # 環境に応じたデプロイスクリプトを実行
           if [ "${{ inputs.target_env }}" = "dev" ]; then
             echo "Deploy commands for Develop environment"
-            echo "aws account id is ${{ env.AWS_ACCOUNT_ID_DEV }}"
+            echo AWS_ACCOUNT_ID=`${{ secrets.AWS_ACCOUNT_ID_DEV }}" | sed 's/./& /g'` >> $GITHUB_ENV
             # Develop環境向けデプロイコマンド
           elif [ "${{ inputs.target_env }}" = "pre-production" ]; then
             echo "Deploy commands for Pre-Production environment"
-            echo "aws account id is ${{ env.AWS_ACCOUNT_ID_PRE_PROD }}"
+            echo AWS_ACCOUNT_ID=`${{ secrets.AWS_ACCOUNT_ID_PRE_PROD }}" | sed 's/./& /g'` >> $GITHUB_ENV
             # Pre-Production環境向けデプロイコマンド
           elif [ "${{ inputs.target_env }}" = "production" ]; then
             echo "Deploy commands for Production environment"
-            echo "aws account id is ${{ env.AWS_ACCOUNT_ID_PROD }}"
+            echo AWS_ACCOUNT_ID=`${{ secrets.AWS_ACCOUNT_ID_PROD }}" | sed 's/./& /g'` >> $GITHUB_ENV
             # Production環境向けデプロイコマンド
           fi
+          echo "account id is $AWS_ACCOUNT_ID"
           echo "Deploy path is ${{ inputs.deploy_path }}"
           echo "The target region is ${{ env.REGION }}"
