@@ -35,4 +35,4 @@ jobs:
             # Production環境向けデプロイコマンド
           fi
           echo "Deploy path is ${{ inputs.deploy_path }}"
-          echo ${{ env.REGION }}
+          echo "${{ env.REGION }}"
