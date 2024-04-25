@@ -1,0 +1,43 @@
+name: Decide Env Workflow
+on:
+  workflow_call:
+    inputs:
+        directory_name:
+            description: 'directory name for deploy'
+            required: true
+            type: string
+        next_step:
+            description: 'filename for next step'
+            required: true
+            type: string
+
+jobs:
+    deploy-develop:
+        if: github.ref == 'refs/heads/main'
+        uses: ${{ inputs.next_step }}
+        with:
+          target_env: 'dev'
+          deploy_path: 'path_main'
+          directory_name: ${{ inputs.directory_name }}
+        secrets:
+          aws_account_id: ${{ secrets.AWS_ACCOUNT_ID_DEV }}
+  
+    deploy-pre-production:
+        if: github.ref == 'refs/heads/production'
+        uses: ${{ inputs.next_step }}
+        with:
+          target_env: 'pre-production'
+          deploy_path: 'path_production'
+          directory_name: ${{ inputs.directory_name }}
+        secrets:
+          aws_account_id: ${{ secrets.AWS_ACCOUNT_ID_PRE_PROD }}
+    
+    deploy-production:
+        if: github.ref == 'refs/heads/production'
+        uses: ${{ inputs.next_step }}
+        with:
+          target_env: 'production'
+          deploy_path: 'path_production'
+          directory_name: ${{ inputs.directory_name }}
+        secrets:
+          aws_account_id: ${{ secrets.AWS_ACCOUNT_ID_PROD }}

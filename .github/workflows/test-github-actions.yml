@@ -8,31 +8,12 @@ on:
     paths:
       - 'docs/**'
 
+env:
+  paths: docs
+
 jobs:
-  deploy-develop:
-    if: github.ref == 'refs/heads/main'
-    uses: ./.github/workflows/test-github-call.yml
+  do:
+    uses: ./.github/workflows/test-decide-env.yml
     with:
-      target_env: 'dev'
-      deploy_path: 'path_main'
-    secrets:
-      aws_account_id: ${{ secrets.AWS_ACCOUNT_ID_DEV }}
-
-
-  deploy-pre-production:
-    if: github.ref == 'refs/heads/production'
-    uses: ./.github/workflows/test-github-call.yml
-    with:
-      target_env: 'pre-production'
-      deploy_path: 'path_production'
-    secrets:
-      aws_account_id: ${{ secrets.AWS_ACCOUNT_ID_PRE_PROD }}
-
-  deploy-production:
-    if: github.ref == 'refs/heads/production'
-    uses: ./.github/workflows/test-github-call.yml
-    with:
-      target_env: 'production'
-      deploy_path: 'path_production'
-    secrets:
-      aws_account_id: ${{ secrets.AWS_ACCOUNT_ID_PROD }}
+      directory_name: docs
+      next_step: ./.github/workflows/test-github-call.yml

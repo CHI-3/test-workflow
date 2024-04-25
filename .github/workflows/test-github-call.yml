@@ -10,6 +10,10 @@ on:
         description: 'Path to deploy'
         required: true
         type: string
+      directory_name:
+        description: 'directory name for deploy'
+        required: true
+        type: string
     secrets:
       aws_account_id:
         required: true
