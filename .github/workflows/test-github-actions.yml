@@ -8,9 +8,12 @@ on:
     paths:
       - 'docs/**'
 
+env:
+  directory_name: docs
+
 jobs:
   do:
     uses: ./.github/workflows/test-decide-env.yml
     with:
-      directory_name: docs
+      directory_name: ${{ env.directory_name }}
       next_step: ./.github/workflows/test-github-call.yml
