@@ -10,6 +10,10 @@ on:
             description: 'filename for next step'
             required: true
             type: string
+        version:
+            description: 'version'
+            required: false
+            type: string
 
 jobs:
     deploy-develop:
@@ -19,6 +23,7 @@ jobs:
           target_env: 'dev'
           deploy_path: 'path_main'
           directory_name: ${{ inputs.directory_name }}
+          version: ${{ inputs.version }}
         secrets:
           aws_account_id: ${{ secrets.AWS_ACCOUNT_ID_DEV }}
   
@@ -29,6 +34,7 @@ jobs:
           target_env: 'pre-production'
           deploy_path: 'path_production'
           directory_name: ${{ inputs.directory_name }}
+          version: ${{ inputs.version }}
         secrets:
           aws_account_id: ${{ secrets.AWS_ACCOUNT_ID_PRE_PROD }}
     
@@ -39,5 +45,6 @@ jobs:
           target_env: 'production'
           deploy_path: 'path_production'
           directory_name: ${{ inputs.directory_name }}
+          version: ${{ inputs.version }}
         secrets:
           aws_account_id: ${{ secrets.AWS_ACCOUNT_ID_PROD }}
