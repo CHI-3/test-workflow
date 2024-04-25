@@ -22,7 +22,6 @@ on:
       aws_account_id:
         required: true
 
-
 env:
     REGION: ap-northeast-1
 
@@ -54,3 +53,4 @@ jobs:
             echo "No Version"
           else
             echo ${{ inputs.version }}
+          fi
