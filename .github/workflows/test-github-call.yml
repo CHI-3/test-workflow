@@ -14,10 +14,13 @@ on:
         description: 'directory name for deploy'
         required: true
         type: string
+      version:
+        description: 'version'
+        required: false
+        type: string
     secrets:
       aws_account_id:
         required: true
-
 
 env:
     REGION: ap-northeast-1
@@ -46,3 +49,8 @@ jobs:
           echo "aws account id is ${{ secrets.aws_account_id }}"
           echo "Deploy path is ${{ inputs.deploy_path }}"
           echo "The target region is ${{ env.REGION }}"
+          if [ "${{ inputs.version }}" = "" ]; then
+            echo "No Version"
+          else
+            echo ${{ inputs.version }}
+          fi

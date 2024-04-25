@@ -10,15 +10,20 @@ on:
             description: 'filename for next step'
             required: true
             type: string
+        version:
+            description: 'version'
+            required: false
+            type: string
 
 jobs:
     deploy-develop:
         if: github.ref == 'refs/heads/main'
         uses: ./.github/workflows/test-github-call.yml
         with:
-          target_env: 'dev'
-          deploy_path: 'path_main'
+          target_env: dev
+          deploy_path: path_main
           directory_name: ${{ inputs.directory_name }}
+          version: ${{ inputs.version }}
         secrets:
           aws_account_id: ${{ secrets.AWS_ACCOUNT_ID_DEV }}
   
@@ -26,9 +31,10 @@ jobs:
         if: github.ref == 'refs/heads/production'
         uses: ./.github/workflows/test-github-call.yml
         with:
-          target_env: 'pre-production'
-          deploy_path: 'path_production'
+          target_env: pre-production
+          deploy_path: path_production
           directory_name: ${{ inputs.directory_name }}
+          version: ${{ inputs.version }}
         secrets:
           aws_account_id: ${{ secrets.AWS_ACCOUNT_ID_PRE_PROD }}
     
@@ -36,8 +42,9 @@ jobs:
         if: github.ref == 'refs/heads/production'
         uses: ./.github/workflows/test-github-call.yml
         with:
-          target_env: 'production'
-          deploy_path: 'path_production'
+          target_env: production
+          deploy_path: path_production
           directory_name: ${{ inputs.directory_name }}
+          version: ${{ inputs.version }}
         secrets:
           aws_account_id: ${{ secrets.AWS_ACCOUNT_ID_PROD }}
