@@ -14,7 +14,7 @@ on:
 jobs:
     deploy-develop:
         if: github.ref == 'refs/heads/main'
-        uses: ${{ inputs.next_step }}
+        uses: ./.github/workflows/test-github-call.yml
         with:
           target_env: 'dev'
           deploy_path: 'path_main'
@@ -24,7 +24,7 @@ jobs:
   
     deploy-pre-production:
         if: github.ref == 'refs/heads/production'
-        uses: ${{ inputs.next_step }}
+        uses: ./.github/workflows/test-github-call.yml
         with:
           target_env: 'pre-production'
           deploy_path: 'path_production'
@@ -34,7 +34,7 @@ jobs:
     
     deploy-production:
         if: github.ref == 'refs/heads/production'
-        uses: ${{ inputs.next_step }}
+        uses: ./.github/workflows/test-github-call.yml
         with:
           target_env: 'production'
           deploy_path: 'path_production'
