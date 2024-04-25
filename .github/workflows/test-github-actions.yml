@@ -8,9 +8,6 @@ on:
     paths:
       - 'docs/**'
 
-env:
-  paths: docs
-
 jobs:
   do:
     uses: ./.github/workflows/test-decide-env.yml
