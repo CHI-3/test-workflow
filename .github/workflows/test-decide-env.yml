@@ -20,8 +20,8 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: ./.github/workflows/test-github-call.yml
         with:
-          target_env: 'dev'
-          deploy_path: 'path_main'
+          target_env: dev
+          deploy_path: path_main
           directory_name: ${{ inputs.directory_name }}
           version: ${{ inputs.version }}
         secrets:
@@ -31,8 +31,8 @@ jobs:
         if: github.ref == 'refs/heads/production'
         uses: ./.github/workflows/test-github-call.yml
         with:
-          target_env: 'pre-production'
-          deploy_path: 'path_production'
+          target_env: pre-production
+          deploy_path: path_production
           directory_name: ${{ inputs.directory_name }}
           version: ${{ inputs.version }}
         secrets:
@@ -42,8 +42,8 @@ jobs:
         if: github.ref == 'refs/heads/production'
         uses: ./.github/workflows/test-github-call.yml
         with:
-          target_env: 'production'
-          deploy_path: 'path_production'
+          target_env: production
+          deploy_path: path_production
           directory_name: ${{ inputs.directory_name }}
           version: ${{ inputs.version }}
         secrets:
