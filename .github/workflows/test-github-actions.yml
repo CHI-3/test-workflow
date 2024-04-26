@@ -7,6 +7,8 @@ on:
       - production
     paths:
       - 'docs/**'
+  
+  workflow_dispatch:
 
 jobs:
   do:
