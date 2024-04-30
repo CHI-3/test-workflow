@@ -14,9 +14,6 @@ on:
             description: 'version'
             required: false
             type: string
-
-env:
-    target_env: dev
     
 
 jobs:
@@ -24,7 +21,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: ./.github/workflows/test-github-call.yml
         with:
-          target_env: ${{ env.target_env }}
+          target_env: dev
           deploy_path: path_main
           directory_name: ${{ inputs.directory_name }}
           version: ${{ inputs.version }}
